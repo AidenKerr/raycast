@@ -4,7 +4,8 @@ class Particle {
         this.pos = createVector(sceneW / 2, sceneH / 2);
         this.rays = [];
         this.heading = 0;
-        for (let a = -this.fov / 2; a < this.fov / 2; a += 0.1) {
+        this.step = 0.2;
+        for (let a = -this.fov / 2; a < this.fov / 2; a += this.step) {
             this.rays.push( new Ray(this.pos, radians(a)));
         }
     }
@@ -22,7 +23,7 @@ class Particle {
         const heading = map(mouseX, sceneW / 2, sceneW, 0, Math.PI);
         this.heading = heading;
         let index = 0;
-        for (let a = -this.fov / 2; a < this.fov / 2; a += 0.1) {
+        for (let a = -this.fov / 2; a < this.fov / 2; a += this.step) {
             this.rays[index].setAngle(radians(a) + this.heading);
             index++;
         }
@@ -43,7 +44,7 @@ class Particle {
     updateFOV(fov) {
         this.fov = fov;
         this.rays = [];
-        for (let a = -this.fov / 2; a < this.fov / 2; a += 0.1) {
+        for (let a = -this.fov / 2; a < this.fov / 2; a += this.step) {
             this.rays.push( new Ray(this.pos, radians(a) + this.heading));
         }
     }
